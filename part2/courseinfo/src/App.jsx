@@ -1,6 +1,4 @@
-import Content from './components/Content'
-import Header from './components/Header'
-import Total from './components/Total'
+import Course from './components/Course'
 
 const App = () => {
   const course = {
@@ -25,16 +23,7 @@ const App = () => {
     ]
   }
 
-  const totalExercises = course.parts
-    .reduce((currentValue, accumulator) => currentValue + accumulator.exercises, 0)
-
-  return (
-    <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-      <Total total={totalExercises} />
-    </div>
-  )
+  return <Course course={course} />
 }
 
 export default App
