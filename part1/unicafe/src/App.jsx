@@ -1,10 +1,14 @@
-import { useState } from "react"
-import Button from "./components/Button"
+import { useState } from 'react'
+import Button from './components/Button'
 
 const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+
+  const totalReviews = good + bad + neutral
+  const averageReviews = (good - bad) / totalReviews
+  const postiveRviews = good / totalReviews * 100
 
   return (
     <>
@@ -16,7 +20,10 @@ const App = () => {
       <div>
         good {good}<br />
         neutral {neutral}<br />
-        bad {bad}
+        bad {bad}<br />
+        all {totalReviews}<br />
+        average {averageReviews}<br />
+        positive {postiveRviews}%
       </div>
     </>
   )
