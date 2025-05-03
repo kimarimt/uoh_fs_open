@@ -13,7 +13,7 @@ const App = () => {
     const fetchPersons = async () => {
       const persons = await personsService.getPersons()
       setPersons(persons)
-    } 
+    }
 
     fetchPersons()
   }, [])
@@ -26,8 +26,8 @@ const App = () => {
     )
 
     if (personExists) {
-      alert(`${name} is already added to phonebook`)
-      return;
+      editContact({ ...personExists, number })
+      return
     }
 
     const person = {
@@ -36,15 +36,22 @@ const App = () => {
       number,
     }
 
-    const newPerson = await personsService.addPerson(person) 
+    const newPerson = await personsService.addPerson(person)
     setPersons([...persons, newPerson])
+  }
+
+  const editContact = async newPerson => {
+    if (confirm(`${newPerson.name} already exists in the phonebook. Would you like to update the number`)) {
+      const updatedPerson = await personsService.editPerson(newPerson.id, newPerson)
+      setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person))
+    }
   }
 
   const deleteContact = async id => {
     const deletedPerson = await personsService.deletePerson(id)
     setPersons(persons.filter(person => person.id !== deletedPerson.id))
   }
- 
+
   return (
     <>
       <h1>Phonebook</h1>
@@ -55,7 +62,7 @@ const App = () => {
       <h2>New Contact</h2>
       <PersonForm addContact={addContact} />
       <h2>Numbers</h2>
-      <Numbers 
+      <Numbers
         persons={filteredPersons}
         onDelete={deleteContact}
       />

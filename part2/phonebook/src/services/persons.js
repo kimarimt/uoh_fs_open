@@ -2,13 +2,18 @@ import axios from 'axios'
 
 const BASE_URL = 'http://localhost:3001/persons'
 
+const addPerson = async personObj => {
+  const response = await axios.post(BASE_URL, personObj)
+  return response.data
+}
+
 const getPersons = async () => {
   const response = await axios.get(BASE_URL)
   return response.data
 }
 
-const addPerson = async personObj => {
-  const response = await axios.post(BASE_URL, personObj)
+const editPerson = async (id, personObj) => {
+  const response = await axios.put(`${BASE_URL}/${id}`, personObj)
   return response.data
 }
 
@@ -18,7 +23,8 @@ const deletePerson = async id => {
 }
 
 export default {
-  getPersons,
   addPerson,
+  getPersons,
+  editPerson,
   deletePerson,
 }
