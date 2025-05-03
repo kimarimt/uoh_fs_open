@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import personsService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
@@ -30,7 +31,7 @@ const App = () => {
     }
 
     const person = {
-      id: String(persons.length + 1),
+      id: uuidv4(),
       name,
       number,
     }
@@ -39,6 +40,11 @@ const App = () => {
     setPersons([...persons, newPerson])
   }
 
+  const deleteContact = async id => {
+    const deletedPerson = await personsService.deletePerson(id)
+    setPersons(persons.filter(person => person.id !== deletedPerson.id))
+  }
+ 
   return (
     <>
       <h1>Phonebook</h1>
@@ -49,7 +55,10 @@ const App = () => {
       <h2>New Contact</h2>
       <PersonForm addContact={addContact} />
       <h2>Numbers</h2>
-      <Numbers persons={filteredPersons} />
+      <Numbers 
+        persons={filteredPersons}
+        onDelete={deleteContact}
+      />
     </>
   )
 }
