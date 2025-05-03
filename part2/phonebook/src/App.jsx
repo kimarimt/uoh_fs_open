@@ -19,7 +19,7 @@ const App = () => {
 
   const filteredPersons = persons ? persons.filter(person => person.name.includes(searchTerm)) : []
 
-  const addContact = (name, number) => {
+  const addContact = async (name, number) => {
     const personExists = persons.find(person =>
       person.name === name
     )
@@ -29,12 +29,13 @@ const App = () => {
       return;
     }
 
-    const newPerson = {
-      id: persons.length + 1,
+    const person = {
+      id: String(persons.length + 1),
       name,
       number,
     }
 
+    const newPerson = await personsService.addPerson(person) 
     setPersons([...persons, newPerson])
   }
 
