@@ -1,19 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import personsService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Numbers from './components/Numbers'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { id: 1, name: 'Arto Hellas', number: '322-640-3544' },
-    { id: 2, name: 'Ada Lovelace', number: '606-870-5958' },
-    { id: 3, name: 'Dan Abramov', number: '816-635-5417' },
-    { id: 4, name: 'Mary Poppendieck', number: '813-517-1447' },
-  ])
-
+  const [persons, setPersons] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
 
-  const filteredPersons = persons.filter(person => person.name.includes(searchTerm))
+  useEffect(() => {
+    const fetchPersons = async () => {
+      const persons = await personsService.getPersons()
+      setPersons(persons)
+    } 
+
+    fetchPersons()
+  }, [])
+
+  const filteredPersons = persons ? persons.filter(person => person.name.includes(searchTerm)) : []
 
   const addContact = (name, number) => {
     const personExists = persons.find(person =>
