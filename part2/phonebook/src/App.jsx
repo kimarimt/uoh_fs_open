@@ -4,10 +4,13 @@ import personsService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Numbers from './components/Numbers'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [message, setMessage] = useState(null)
+  const [color, setColor] = useState(null)
 
   useEffect(() => {
     const fetchPersons = async () => {
@@ -37,12 +40,16 @@ const App = () => {
     }
 
     const newPerson = await personsService.addPerson(person)
+    
+    toggleNotification(`Added ${newPerson.name}`, 'green')
     setPersons([...persons, newPerson])
   }
 
   const editContact = async newPerson => {
     if (confirm(`${newPerson.name} already exists in the phonebook. Would you like to update the number`)) {
       const updatedPerson = await personsService.editPerson(newPerson.id, newPerson)
+
+      toggleNotification(`Number for ${updatedPerson.name} updated`, 'green')
       setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person))
     }
   }
@@ -52,9 +59,22 @@ const App = () => {
     setPersons(persons.filter(person => person.id !== deletedPerson.id))
   }
 
+  const toggleNotification = (message, color) => {
+    setMessage(message)
+    setColor(color)
+
+    setTimeout(() => {
+      setMessage(null)
+      setColor(null)
+    }, 2000)
+  }
+
   return (
     <>
       <h1>Phonebook</h1>
+      {message && color &&
+        <Notification message={message} color={color} />
+      }
       <Filter
         searchTerm={searchTerm}
         onChange={({ target }) => setSearchTerm(target.value)}
