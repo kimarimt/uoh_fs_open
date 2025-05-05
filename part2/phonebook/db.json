@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "id": "7a2843ed-5e83-4e16-a048-2cbacb9ffcb6",
-      "name": "Ada Lovelace",
-      "number": "606-870-5958"
-    },
-    {
       "id": "b8643a89-66a8-4404-8f5b-d48b3c74b618",
       "name": "Dan Abramov",
       "number": "816-635-5417"

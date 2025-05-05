@@ -55,8 +55,12 @@ const App = () => {
   }
 
   const deleteContact = async id => {
-    const deletedPerson = await personsService.deletePerson(id)
-    setPersons(persons.filter(person => person.id !== deletedPerson.id))
+    try {
+      const deletedPerson = await personsService.deletePerson(id)
+      setPersons(persons.filter(person => person.id !== deletedPerson.id))
+    } catch (_) {
+      toggleNotification(`Contact not found`, 'red')
+    }
   }
 
   const toggleNotification = (message, color) => {

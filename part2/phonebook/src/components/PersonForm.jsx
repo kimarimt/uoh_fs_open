@@ -23,15 +23,17 @@ const PersonForm = ({ addContact }) => {
             type='text'
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
+            required='true'
           />
         </div>
         <div>
           <label htmlFor='number'>Number: </label>
           <input
             id='number'
-            type='text'
+            type='phone'
             value={newNumber}
             onChange={({ target }) => setNewNumber(target.value)}
+            required='true'
           />
         </div>
         <div>
