@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
-import countriesService from './services/countries'
+import countriesService from './services/country'
 import SearchBar from './components/SearchBar'
 import SearchResults from './components/SearchResults'
 
@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchCountries = async () => {
-      const countriesData = await countriesService.fetchCountries(searchTerm)
+      const countriesData = await countriesService.getCountriesData()
       setCountries(countriesData)
     }
 

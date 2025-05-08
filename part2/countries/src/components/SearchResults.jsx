@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import countriesService from '../services/countries'
+import countriesService from '../services/country'
 import CountryDetail from './CountryDetail'
 
 const SearchResults = ({ results }) => {
@@ -7,7 +7,7 @@ const SearchResults = ({ results }) => {
   const [country, setCountry] = useState(null)
 
   const handleChange = async name => {
-    const countryData = await countriesService.fetchCountry(name)
+    const countryData = await countriesService.getCountryData(name)
     setCountry(countryData)
     setShowDetail(true)
   }
