@@ -7,6 +7,12 @@ const fetchCountries = async () => {
   return response.data
 }
 
+const fetchCountry = async name => {
+  const response = await axios.get(`${BASE_URL}/name/${name}`)
+  return response.data
+}
+
 export default {
-  fetchCountries
+  fetchCountries,
+  fetchCountry
 }
