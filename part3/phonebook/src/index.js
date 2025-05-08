@@ -4,6 +4,7 @@ import personsRouter, { persons } from './controllers/persons.js'
 const port = 3001
 const app = express()
 
+app.use(express.json())
 app.use('/api/persons', personsRouter)
 
 app.get('/info', (req, res) => {

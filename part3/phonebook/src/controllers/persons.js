@@ -25,6 +25,16 @@ export let persons = [
 
 const router = express.Router()
 
+router.post('/', (req, res) => {
+  const newPerson = {
+    id: `${Math.floor(Math.random() * 96) + persons.length}`,
+    ...req.body
+  }
+
+  persons = [...persons, newPerson]
+  res.json(newPerson)
+})
+
 router.get('/', (req, res) => {
   res.json(persons)
 })
