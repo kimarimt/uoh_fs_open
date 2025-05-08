@@ -1,6 +1,6 @@
 import express from 'express'
 
-export const persons = [
+export let persons = [
   { 
     'id': '1',
     'name': 'Arto Hellas', 
@@ -33,10 +33,21 @@ router.get('/:id', (req, res) => {
   const person = persons.find(p => p.id === req.params.id)
 
   if (!person) {
-    return res.status(404).json('Person not found')
+    return res.status(404).json('person not found')
   }
 
   res.json(person)
+})
+
+router.delete('/:id', (req, res) => {
+  const person = persons.find(p => p.id === req.params.id)
+
+  if (!person) {
+    return res.status(404).json('person not found')
+  }
+
+  persons = persons.filter(p => p.id !== req.params.id)
+  res.status(204).end()
 })
 
 export default router
