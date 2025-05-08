@@ -1,6 +1,6 @@
 import express from 'express'
 
-const persons = [
+export const persons = [
   { 
     "id": "1",
     "name": "Arto Hellas", 
