@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
   }
 
   persons = [...persons, newPerson]
-  res.json(newPerson)
+  res.status(201).json(newPerson)
 })
 
 router.get('/', (req, res) => {
