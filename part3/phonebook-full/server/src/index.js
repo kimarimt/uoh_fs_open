@@ -1,8 +1,12 @@
 import express from 'express'
 import morgan from 'morgan'
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 import personsRouter, { persons } from './controllers/persons.js'
 
-const port = 3001
+dotenv.config()
+
+const port = process.env.PORT || 3001
 const app = express()
 const postFormat = ':method :url :status :res[content-length] - :response-time ms :body'
 
@@ -17,6 +21,9 @@ app.use((req, res, next) => {
     morgan('tiny')(req, res, next)
   }
 })
+
+mongoose.set('strictQuery', true)
+mongoose.connect(process.env.MONGODB_URI)
 
 app.use(express.static('dist'))
 app.use(express.json())

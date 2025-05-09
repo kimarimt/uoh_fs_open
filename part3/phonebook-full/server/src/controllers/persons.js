@@ -1,4 +1,5 @@
 import express from 'express'
+import Person from '../models/persons.js'
 
 export let persons = [
   {
@@ -49,17 +50,16 @@ router.post('/', (req, res) => {
   res.status(201).json(newPerson)
 })
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  const persons = await Person.find({})
   res.json(persons)
 })
 
-router.get('/:id', (req, res) => {
-  const person = persons.find(p => p.id === req.params.id)
+router.get('/:id', async (req, res) => {
+  const person = await Person.findById(req.params.id)
 
   if (!person) {
-    return res.status(404).json({
-      'error': 'person not found'
-    })
+    return res.status(400).json({ 'error': 'person not found' })
   }
 
   res.json(person)
