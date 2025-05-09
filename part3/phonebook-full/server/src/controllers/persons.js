@@ -75,7 +75,7 @@ router.delete('/:id', (req, res) => {
   }
 
   persons = persons.filter(p => p.id !== req.params.id)
-  res.status(204).end()
+  res.status(200).json(person)
 })
 
 export default router

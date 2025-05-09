@@ -10,6 +10,7 @@
   "license": "MIT",
   "description": "Fullstack Open Part 3 Phonebook project",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   },
   "devDependencies": {

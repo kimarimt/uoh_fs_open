@@ -23,7 +23,7 @@ const PersonForm = ({ addContact }) => {
             type='text'
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
-            required='true'
+            required
           />
         </div>
         <div>
@@ -33,7 +33,7 @@ const PersonForm = ({ addContact }) => {
             type='phone'
             value={newNumber}
             onChange={({ target }) => setNewNumber(target.value)}
-            required='true'
+            required
           />
         </div>
         <div>

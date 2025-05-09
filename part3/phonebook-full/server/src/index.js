@@ -1,11 +1,13 @@
 import express from 'express'
 import morgan from 'morgan'
+import cors from 'cors'
 import personsRouter, { persons } from './controllers/persons.js'
 
 const port = 3001
 const app = express()
-
 const postFormat = ':method :url :status :res[content-length] - :response-time ms :body'
+
+app.use(cors())
 
 morgan.token('body', (req, res) => {
   return JSON.stringify(req.body)
