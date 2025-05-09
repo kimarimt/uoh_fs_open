@@ -9,7 +9,7 @@ if (args.length < 1) {
 
 const password = args[0]
 
-const url = `mongodb+srv://kimarimt:${password}@cluster0.of2o7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const url = `mongodb+srv://kimarimt:${password}@cluster0.of2o7.mongodb.net/phonebookApp?retryWrites=true&w=majority&appName=Cluster0`
 
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
