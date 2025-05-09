@@ -11,9 +11,10 @@
   "description": "Fullstack Open Part 3 Phonebook project",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "morgan": "^1.10.0"
+    "@flydotio/dockerfile": "^0.7.10"
   }
 }

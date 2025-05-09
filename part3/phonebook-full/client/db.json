@@ -1,0 +1,24 @@
+{
+  "persons": [
+    {
+      "id": "b8643a89-66a8-4404-8f5b-d48b3c74b618",
+      "name": "Dan Abramov",
+      "number": "816-635-5417"
+    },
+    {
+      "id": "a3abe19f-35b4-4210-b6fc-86332c482b95",
+      "name": "Mary Poppendieck",
+      "number": "813-517-1447"
+    },
+    {
+      "id": "55cb8285-12f2-4352-bac3-0cb1f8a25b97",
+      "name": "James Sunderland",
+      "number": "968-586-8812"
+    },
+    {
+      "id": "933f90e7-807e-417d-a896-02f5f6f2e6b1",
+      "name": "Arto Hellas",
+      "number": "1-521-914-8061"
+    }
+  ]
+}
