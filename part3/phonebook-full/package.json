@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "cd server && rm -rf dist && cd ../client && npm run build && cp -r dist ../server",
     "dev": "concurrently 'cd client/ && npm run dev' 'cd server/ && npm run dev'",
-    "deploy": "cd server && fly deploy"
+    "deploy": "cd server && fly deploy",
+    "deploy:full": "npm run build && npm run deploy",
+    "logs:prod": "fly logs"
   },
   "author": "Alec German <kimarimt@protonmail.com>",
   "license": "MIT",
