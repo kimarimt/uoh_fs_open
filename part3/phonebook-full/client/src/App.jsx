@@ -48,9 +48,8 @@ const App = () => {
   const editContact = async newPerson => {
     if (confirm(`${newPerson.name} already exists in the phonebook. Would you like to update the number`)) {
       const updatedPerson = await personsService.editPerson(newPerson.id, newPerson)
-
       toggleNotification(`Number for ${updatedPerson.name} updated`, 'green')
-      setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person))
+      setPersons(persons.map(p => p.id === updatedPerson.id ? updatedPerson : p))
     }
   }
 

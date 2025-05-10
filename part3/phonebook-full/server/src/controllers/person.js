@@ -36,6 +36,20 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    const updatedPerson = await Person.findByIdAndUpdate(req.params.id, req.body, { new: true })
+
+    if (!updatedPerson) {
+      return res.status(400).send({error: 'person not found'})
+    }
+    
+    res.json(updatedPerson)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.delete('/:id', async (req, res, next) => {
   try {
     const deletedPerson = await Person.findByIdAndDelete(req.params.id)
