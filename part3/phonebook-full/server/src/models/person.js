@@ -9,6 +9,7 @@ const personSchema = new mongoose.Schema({
   },
   number: {
     type: String,
+    match: /^(1?\-)?\d{3}\-\d{3}\-\d{4}$/,
     required: true
   }
 })
