@@ -66,8 +66,8 @@ const App = () => {
       const deletedPerson = await personsService.deletePerson(id)
       setPersons(persons.filter(person => person.id !== deletedPerson.id))
       toggleNotification(`${deletedPerson.name} deleted`, 'red')
-    } catch (_) {
-      toggleNotification(`Contact not found`, 'red')
+    } catch (err) {
+      toggleNotification(err.response.data.error, 'red')
     }
   }
 

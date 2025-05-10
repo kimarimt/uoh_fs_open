@@ -5,13 +5,13 @@ const personSchema = new mongoose.Schema({
     type: String,
     unique: true,
     minLength: 3,
-    required: true
+    required: true,
   },
   number: {
     type: String,
-    match: /^(1?\-)?\d{3}\-\d{3}\-\d{4}$/,
-    required: true
-  }
+    match: /^(1?-)?\d{3}-\d{3}-\d{4}$/,
+    required: true,
+  },
 })
 
 personSchema.set('toJSON', {
@@ -19,7 +19,7 @@ personSchema.set('toJSON', {
     obj.id = obj._id.toString()
     delete obj._id
     delete obj.__v
-  }
+  },
 })
 
 export default mongoose.model('Person', personSchema)

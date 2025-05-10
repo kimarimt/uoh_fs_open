@@ -7,12 +7,17 @@
     "dev": "concurrently 'cd client/ && npm run dev' 'cd server/ && npm run dev'",
     "deploy": "cd server && fly deploy",
     "deploy:full": "npm run build && npm run deploy",
-    "logs:prod": "fly logs"
+    "logs:prod": "fly logs",
+    "lint": "eslint ."
   },
   "author": "Alec German <kimarimt@protonmail.com>",
   "license": "MIT",
   "description": "Fullstack Open Part 3 Phonebook project",
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "@eslint/js": "^9.26.0",
+    "@stylistic/eslint-plugin": "^4.2.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.26.0",
+    "globals": "^16.1.0"
   }
 }

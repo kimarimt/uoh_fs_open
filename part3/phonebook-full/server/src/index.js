@@ -12,14 +12,15 @@ const port = process.env.PORT || 3001
 const app = express()
 const postFormat = ':method :url :status :res[content-length] - :response-time ms :body'
 
-morgan.token('body', (req, res) => {
+morgan.token('body', (req, _res) => {
   return JSON.stringify(req.body)
 })
 
 app.use((req, res, next) => {
   if (req.method === 'POST') {
     morgan(postFormat)(req, res, next)
-  } else {
+  }
+  else {
     morgan('tiny')(req, res, next)
   }
 })
@@ -34,7 +35,7 @@ app.use('/api/persons', personsRouter)
 
 app.get('/info', async (req, res) => {
   const current = new Date()
-  const totalPersons = await Person.countDocuments();
+  const totalPersons = await Person.countDocuments()
 
   res.send(`
 <p>Phonebook has info for ${totalPersons} people</p>

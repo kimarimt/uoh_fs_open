@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const args = process.argv.slice(2)
 
@@ -16,7 +16,7 @@ mongoose.connect(url)
 
 const personSchema = new mongoose.Schema({
   name: String,
-  number: String
+  number: String,
 })
 
 const Person = mongoose.model('Person', personSchema)
@@ -24,17 +24,18 @@ const Person = mongoose.model('Person', personSchema)
 if (args.length === 3) {
   const person = new Person({
     name: args[1],
-    number: args[2]
+    number: args[2],
   })
 
-  person.save().then(result => {
-    console.log(`added ${person.name} ${person.number} to phonebook`)
+  person.save().then((result) => {
+    console.log(`added ${result.name} ${result.number} to phonebook`)
     mongoose.connection.close()
   })
-} else {
+}
+else {
   Person
     .find({})
-    .then(result => {
+    .then((result) => {
       console.log('Phonebook:')
 
       for (const person of result) {
@@ -43,4 +44,3 @@ if (args.length === 3) {
       mongoose.connection.close()
     })
 }
-
