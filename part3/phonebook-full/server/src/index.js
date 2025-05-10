@@ -2,6 +2,7 @@ import express from 'express'
 import morgan from 'morgan'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import middleware from './util/middleware.js'
 import personsRouter from './controllers/person.js'
 import Person from './models/person.js'
 
@@ -40,6 +41,9 @@ app.get('/info', async (req, res) => {
 <p>${current.toUTCString()}-0500 (Eastern Standard Time)</p>
   `)
 })
+
+app.use(middleware.errorHandler)
+app.use(middleware.unknownEndpoint)
 
 app.listen(port, () => {
   console.log(`[server] Listening at http://localhost:${port}`)
