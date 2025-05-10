@@ -38,7 +38,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const updatedPerson = await Person.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const updatedPerson = await Person.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
 
     if (!updatedPerson) {
       return res.status(400).send({error: 'person not found'})

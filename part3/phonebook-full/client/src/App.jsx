@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import personsService from './services/persons'
+import personsService from './services/person'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Numbers from './components/Numbers'
@@ -33,23 +33,31 @@ const App = () => {
       return
     }
 
-    const person = {
-      id: uuidv4(),
-      name,
-      number,
-    }
+    try {
+      const person = {
+        id: uuidv4(),
+        name,
+        number,
+      }
 
-    const newPerson = await personsService.addPerson(person)
-    
-    toggleNotification(`Added ${newPerson.name}`, 'green')
-    setPersons([...persons, newPerson])
+      const newPerson = await personsService.addPerson(person)
+      
+      toggleNotification(`Added ${newPerson.name}`, 'green')
+      setPersons([...persons, newPerson])
+    } catch (err) {
+      toggleNotification(err.response.data.error, 'red')
+    }
   }
 
   const editContact = async newPerson => {
     if (confirm(`${newPerson.name} already exists in the phonebook. Would you like to update the number`)) {
-      const updatedPerson = await personsService.editPerson(newPerson.id, newPerson)
-      toggleNotification(`Number for ${updatedPerson.name} updated`, 'green')
-      setPersons(persons.map(p => p.id === updatedPerson.id ? updatedPerson : p))
+      try {
+        const updatedPerson = await personsService.editPerson(newPerson.id, newPerson)
+        toggleNotification(`Number for ${updatedPerson.name} updated`, 'green')
+        setPersons(persons.map(p => p.id === updatedPerson.id ? updatedPerson : p))
+      } catch (err) {
+        toggleNotification(err.response.data.error, 'red')
+      }
     }
   }
 
