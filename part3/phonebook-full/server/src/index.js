@@ -2,7 +2,8 @@ import express from 'express'
 import morgan from 'morgan'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import personsRouter, { persons } from './controllers/persons.js'
+import personsRouter from './controllers/person.js'
+import Person from './models/person.js'
 
 dotenv.config()
 
@@ -30,11 +31,12 @@ app.use(express.json())
 
 app.use('/api/persons', personsRouter)
 
-app.get('/info', (req, res) => {
+app.get('/info', async (req, res) => {
   const current = new Date()
+  const totalPersons = await Person.countDocuments();
 
   res.send(`
-<p>Phonebook has info for ${persons.length} people</p>
+<p>Phonebook has info for ${totalPersons} people</p>
 <p>${current.toUTCString()}-0500 (Eastern Standard Time)</p>
   `)
 })
