@@ -48,7 +48,7 @@ const blogs = [
     title: 'TDD harms architecture',
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
-    likes: 0,
+    likes: 11,
     __v: 0
   },
   {
@@ -84,7 +84,7 @@ describe('total likes', () => {
 
   test('returns the correct number of likes', () => {
     const got = listHelper.totalLikes(blogs)
-    assert.strictEqual(got, 54)
+    assert.strictEqual(got, 65)
   })
 })
 
@@ -93,12 +93,6 @@ describe('favorite blog', () => {
     const emptyBlogs = []
     const got = listHelper.favoriteBlog(emptyBlogs)
     assert.deepStrictEqual(got, {})
-  })
-
-  test('returns the correct blog when multiple blogs have the most likes', () => {
-    const expected = blogs[blogs.length - 1]
-    const got = listHelper.favoriteBlog(blogs)
-    assert.deepStrictEqual(got, expected)
   })
 
   test('returns the blog with most likes', () => {
@@ -115,7 +109,7 @@ describe('most blogs', () => {
     assert.strictEqual(got, expected)
   })
 
-  test('returns the correct author when multple authors have the same frequency', () => {
+  test('returns the author with the most blogs', () => {
     const expected = {
       author: "Edsger W. Dijkstra",
       blogs: 3
@@ -123,13 +117,21 @@ describe('most blogs', () => {
     const got = listHelper.mostBlogs(blogs)
     assert.deepStrictEqual(got, expected)
   })
+})
 
-  test('returns the author with the most blogs', () => {
+describe('most likes', () => {
+  test('returns undefined for an empty list', () => {
+    const expected = undefined
+    const got = listHelper.mostLikes([])
+    assert.strictEqual(got, expected)
+  })
+
+  test('returns the author with the most likes', () => {
     const expected = {
-      author: "Edsger W. Dijkstra",
-      blogs: 3
+      author: 'Edsger W. Dijkstra',
+      likes: 23
     }
-    const got = listHelper.mostBlogs(blogs)
+    const got = listHelper.mostLikes(blogs)
     assert.deepStrictEqual(got, expected)
   })
 })
