@@ -4,7 +4,9 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "dev": "node --watch src/index.js"
+    "start": "node src/index.json",
+    "dev": "node --watch src/index.js",
+    "test": "node --test"
   },
   "author": "Alec German <kimarimt@protonmail.com>",
   "license": "MIT",
