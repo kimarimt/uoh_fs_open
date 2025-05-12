@@ -28,6 +28,14 @@ const blogs = [
     __v: 0
   },
   {
+    _id: '5a422b3a1b54a676234d17f9',
+    title: 'Go To Statement Considered Harmful',
+    author: 'Edsger W. Dijkstra',
+    url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+    likes: 6,
+    __v: 0
+  },
+  {
     _id: '5a422b891b54a676234d17fa',
     title: 'First class tests',
     author: 'Robert C. Martin',
@@ -58,7 +66,7 @@ const blogs = [
     url: 'https://go.dev/blog/testing-b-loop',
     likes: 12,
     __v: 0
-  }  
+  }
 ]
 
 test('dummy returns one', () => {
@@ -76,11 +84,11 @@ describe('total likes', () => {
 
   test('returns the correct number of likes', () => {
     const got = listHelper.totalLikes(blogs)
-    assert.strictEqual(got, 48)
+    assert.strictEqual(got, 54)
   })
 })
 
-describe('favoriteBlog', () => {
+describe('favorite blog', () => {
   test('empty list returns an empty object', () => {
     const emptyBlogs = []
     const got = listHelper.favoriteBlog(emptyBlogs)
@@ -88,14 +96,40 @@ describe('favoriteBlog', () => {
   })
 
   test('returns the correct blog when multiple blogs have the most likes', () => {
-    const expected = blogs[blogs.length-1]
+    const expected = blogs[blogs.length - 1]
     const got = listHelper.favoriteBlog(blogs)
     assert.deepStrictEqual(got, expected)
   })
 
   test('returns the blog with most likes', () => {
-    const expected = blogs[blogs.length-1]
+    const expected = blogs[blogs.length - 1]
     const got = listHelper.favoriteBlog(blogs)
+    assert.deepStrictEqual(got, expected)
+  })
+})
+
+describe('most blogs', () => {
+  test('returns undefined when list is empty', () => {
+    const expected = undefined
+    const got = listHelper.mostBlogs([])
+    assert.strictEqual(got, expected)
+  })
+
+  test('returns the correct author when multple authors have the same frequency', () => {
+    const expected = {
+      author: "Edsger W. Dijkstra",
+      blogs: 3
+    }
+    const got = listHelper.mostBlogs(blogs)
+    assert.deepStrictEqual(got, expected)
+  })
+
+  test('returns the author with the most blogs', () => {
+    const expected = {
+      author: "Edsger W. Dijkstra",
+      blogs: 3
+    }
+    const got = listHelper.mostBlogs(blogs)
     assert.deepStrictEqual(got, expected)
   })
 })
