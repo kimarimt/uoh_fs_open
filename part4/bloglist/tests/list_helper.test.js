@@ -9,7 +9,7 @@ const blogs = [
     author: 'Michael Chan',
     url: 'https://reactpatterns.com/',
     likes: 7,
-    __v: 0
+    __v: 0,
   },
   {
     _id: '5a422aa71b54a676234d17f8',
@@ -17,7 +17,7 @@ const blogs = [
     author: 'Edsger W. Dijkstra',
     url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
     likes: 5,
-    __v: 0
+    __v: 0,
   },
   {
     _id: '5a422b3a1b54a676234d17f9',
@@ -25,7 +25,7 @@ const blogs = [
     author: 'Edsger W. Dijkstra',
     url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
     likes: 12,
-    __v: 0
+    __v: 0,
   },
   {
     _id: '5a422b3a1b54a676234d17f9',
@@ -33,7 +33,7 @@ const blogs = [
     author: 'Edsger W. Dijkstra',
     url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
     likes: 6,
-    __v: 0
+    __v: 0,
   },
   {
     _id: '5a422b891b54a676234d17fa',
@@ -41,7 +41,7 @@ const blogs = [
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll',
     likes: 10,
-    __v: 0
+    __v: 0,
   },
   {
     _id: '5a422ba71b54a676234d17fb',
@@ -49,7 +49,7 @@ const blogs = [
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
     likes: 11,
-    __v: 0
+    __v: 0,
   },
   {
     _id: '5a422bc61b54a676234d17fc',
@@ -57,7 +57,7 @@ const blogs = [
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
     likes: 2,
-    __v: 0
+    __v: 0,
   },
   {
     _id: '68216ae896710c3fc7fff94a',
@@ -65,8 +65,8 @@ const blogs = [
     author: 'Junyang Shao',
     url: 'https://go.dev/blog/testing-b-loop',
     likes: 12,
-    __v: 0
-  }
+    __v: 0,
+  },
 ]
 
 test('dummy returns one', () => {
@@ -111,8 +111,8 @@ describe('most blogs', () => {
 
   test('returns the author with the most blogs', () => {
     const expected = {
-      author: "Edsger W. Dijkstra",
-      blogs: 3
+      author: 'Edsger W. Dijkstra',
+      blogs: 3,
     }
     const got = listHelper.mostBlogs(blogs)
     assert.deepStrictEqual(got, expected)
@@ -129,7 +129,7 @@ describe('most likes', () => {
   test('returns the author with the most likes', () => {
     const expected = {
       author: 'Edsger W. Dijkstra',
-      likes: 23
+      likes: 23,
     }
     const got = listHelper.mostLikes(blogs)
     assert.deepStrictEqual(got, expected)
