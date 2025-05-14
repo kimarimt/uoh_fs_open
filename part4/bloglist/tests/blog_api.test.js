@@ -17,7 +17,7 @@ describe('Blog API testing', () => {
     await Promise.all(blogPromises)
   })
 
-  describe.only('reading blogs', () => {
+  describe('reading blogs', () => {
     test('blogs are return as json', async () => {
       await api
         .get('/api/blogs')
@@ -28,6 +28,13 @@ describe('Blog API testing', () => {
     test('all blogs are returned', async () => {
       const res = await api.get('/api/blogs')
       assert.strictEqual(res.body.length, helper.initialBlogs.length)
+    })
+
+    test.only('blog objects have an \'id\' property', async () => {
+      const res = await api.get('/api/blogs')
+      const firstBlog = res.body[0]
+
+      assert(Object.keys(firstBlog).includes('id'))
     })
   })
 
