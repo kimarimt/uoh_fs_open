@@ -11,10 +11,7 @@ const api = supertest(app)
 describe('Blog API testing', () => {
   beforeEach(async () => {
     await Blog.deleteMany({})
-
-    const newBlogs = helper.initialBlogs.map(b => new Blog(b))
-    const blogPromises = newBlogs.map(b => b.save())
-    await Promise.all(blogPromises)
+    await Blog.insertMany(helper.initialBlogs)
   })
 
   describe('reading blogs', () => {
