@@ -17,7 +17,9 @@ const favoriteBlog = (blogs) => {
 const mostBlogs = (blogs) => {
   return _(blogs)
     .countBy('author')
-    .map((blogs, author) => { return { author: author, blogs: blogs } })
+    .map((blogs, author) => {
+      return { author: author, blogs: blogs }
+    })
     .orderBy('blogs', 'desc')
     .first()
 }

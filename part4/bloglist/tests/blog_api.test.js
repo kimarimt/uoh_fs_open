@@ -15,23 +15,55 @@ describe('Blog API testing', () => {
   })
 
   describe('reading blogs', () => {
-    test('blogs are return as json', async () => {
-      await api
-        .get('/api/blogs')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
+    describe('all blogs', () => {
+      test('blogs are return as json', async () => {
+        await api
+          .get('/api/blogs')
+          .expect(200)
+          .expect('Content-Type', /application\/json/)
+      })
+
+      test('all blogs are returned', async () => {
+        const res = await api.get('/api/blogs')
+        assert.strictEqual(res.body.length, helper.initialBlogs.length)
+      })
+
+      test('blog objects have an \'id\' property', async () => {
+        const res = await api.get('/api/blogs')
+        const firstBlog = res.body[0]
+
+        assert(Object.keys(firstBlog).includes('id'))
+      })
     })
 
-    test('all blogs are returned', async () => {
-      const res = await api.get('/api/blogs')
-      assert.strictEqual(res.body.length, helper.initialBlogs.length)
-    })
+    describe('reading a specific blog', () => {
+      test('succeeds with a valid id', async () => {
+        const blogs = await helper.blogsInDB()
+        const blogToView = blogs[0]
 
-    test('blog objects have an \'id\' property', async () => {
-      const res = await api.get('/api/blogs')
-      const firstBlog = res.body[0]
+        const resultBlog = await api
+          .get(`/api/blogs/${blogToView.id}`)
+          .expect(200)
+          .expect('Content-Type', /application\/json/)
 
-      assert(Object.keys(firstBlog).includes('id'))
+        assert.deepStrictEqual(resultBlog.body, blogToView)
+      })
+
+      test('fails with 404 if blog doesn\'t exist', async () => {
+        const nonExistingId = await helper.nonExistingId()
+
+        await api
+          .get(`/api/blogs/${nonExistingId}`)
+          .expect(404)
+      })
+
+      test.only('fails with 400 if id is invalid', async () => {
+        const invalidId = '68249d1a20b823bae2221'
+
+        await api
+          .get(`/api/blogs/${invalidId}`)
+          .expect(400)
+      })
     })
   })
 
@@ -92,7 +124,7 @@ describe('Blog API testing', () => {
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
     })
 
-    test.only('blog without a \'url\' is not added', async () => {
+    test('blog without a \'url\' is not added', async () => {
       const newBlog = {
         title: 'Traversal-resistant file APIs',
         author: 'Damien Neil',

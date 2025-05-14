@@ -15,4 +15,15 @@ router.get('/', asyncHandler(async (req, res, _next) => {
   res.json(blogs)
 }))
 
+router.get('/:id', asyncHandler(async (req, res, _next) => {
+  const blog = await Blog.findById(req.params.id)
+
+  if (blog) {
+    res.json(blog)
+  }
+  else {
+    res.status(404).end()
+  }
+}))
+
 export default router
