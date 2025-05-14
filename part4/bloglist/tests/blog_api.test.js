@@ -79,6 +79,36 @@ describe('Blog API testing', () => {
       const lastBlog = blogsAtEnd[blogsAtEnd.length - 1]
       assert.strictEqual(lastBlog.likes, 0)
     })
+
+    test('blog without a \'title\' is not added', async () => {
+      const newBlog = {
+        author: 'Damien Neil',
+        url: 'https://go.dev/blog/osroot',
+      }
+
+      await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+
+      const blogsAtEnd = await helper.blogsInDB()
+      assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+    })
+
+    test.only('blog without a \'url\' is not added', async () => {
+      const newBlog = {
+        title: 'Traversal-resistant file APIs',
+        author: 'Damien Neil',
+      }
+
+      await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+
+      const blogsAtEnd = await helper.blogsInDB()
+      assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+    })
   })
 
   after(async () => {
