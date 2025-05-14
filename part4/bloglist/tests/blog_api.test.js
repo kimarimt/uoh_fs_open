@@ -39,7 +39,7 @@ describe('Blog API testing', () => {
   })
 
   describe('creating blogs', () => {
-    test.only('a valid blog can be added', async () => {
+    test('a valid blog can be added', async () => {
       const newBlog = {
         title: 'Traversal-resistant file APIs',
         author: 'Damien Neil',
@@ -58,6 +58,26 @@ describe('Blog API testing', () => {
 
       const titles = blogsAtEnd.map(b => b.title)
       assert(titles.includes(newBlog.title))
+    })
+
+    test('new blog\'s \'likes\' property defaults to 0, if it\'s missing from the request', async () => {
+      const newBlog = {
+        title: 'Traversal-resistant file APIs',
+        author: 'Damien Neil',
+        url: 'https://go.dev/blog/osroot',
+      }
+
+      await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+      const blogsAtEnd = await helper.blogsInDB()
+      assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+
+      const lastBlog = blogsAtEnd[blogsAtEnd.length - 1]
+      assert.strictEqual(lastBlog.likes, 0)
     })
   })
 
