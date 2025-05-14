@@ -3,16 +3,9 @@ import globals from 'globals'
 import js from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin'
 
-const customized = stylistic.configs.customize({
-  indent: 2,
-  quotes: 'single',
-  semi: false,
-  blockSpacing: true,
-  commaDangle: 'always-multiline',
-})
-
 export default defineConfig([
   js.configs.recommended,
+  stylistic.configs.recommended,
   {
     files: [
       '**/*.{js,mjs,cjs}',
@@ -25,11 +18,7 @@ export default defineConfig([
     },
   },
   {
-    plugins: {
-      '@stylistic': stylistic,
-    },
     rules: {
-      ...customized.rules,
       'no-unused-vars': [
         'error',
         {
