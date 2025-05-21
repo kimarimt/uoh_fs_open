@@ -57,7 +57,7 @@ describe('Blog API testing', () => {
           .expect(404)
       })
 
-      test.only('fails with 400 if id is invalid', async () => {
+      test('fails with 400 if id is invalid', async () => {
         const invalidId = '68249d1a20b823bae2221'
 
         await api
@@ -137,6 +137,31 @@ describe('Blog API testing', () => {
 
       const blogsAtEnd = await helper.blogsInDB()
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+    })
+  })
+
+  describe('deleting blogs', () => {
+    test('deleting a blog with a valid id succeeds with a status code of 204', async () => {
+      const blogsAtStart = await helper.blogsInDB()
+      const firstBlog = blogsAtStart[0]
+
+      await api
+        .delete(`/api/blogs/${firstBlog.id}`)
+        .expect(204)
+
+      const blogsAtEnd = await helper.blogsInDB()
+      assert.strictEqual(blogsAtEnd.length, blogsAtStart.length - 1)
+
+      const id = blogsAtStart.map(b => b.id)
+      assert(!blogsAtEnd.includes(id))
+    })
+
+    test('deleting a blog fails with a 404 is blog is not found', async () => {
+      const nonExistingId = await helper.nonExistingId()
+
+      await api
+        .delete(`/api/blogs/${nonExistingId}`)
+        .expect(404)
     })
   })
 

@@ -18,12 +18,22 @@ router.get('/', asyncHandler(async (req, res, _next) => {
 router.get('/:id', asyncHandler(async (req, res, _next) => {
   const blog = await Blog.findById(req.params.id)
 
-  if (blog) {
-    res.json(blog)
+  if (!blog) {
+    return res.status(404).send({ error: 'blog not found!' })
   }
-  else {
-    res.status(404).end()
+
+  res.json(blog)
+}))
+
+router.delete('/:id', asyncHandler(async (req, res, _next) => {
+  const blog = await Blog.findById(req.params.id)
+
+  if (!blog) {
+    return res.status(404).send({ error: 'blog not found' })
   }
+
+  await Blog.findByIdAndDelete(blog.id)
+  res.status(204).end()
 }))
 
 export default router
