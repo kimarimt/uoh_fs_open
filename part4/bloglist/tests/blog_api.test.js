@@ -165,6 +165,30 @@ describe('Blog API testing', () => {
     })
   })
 
+  describe('editing blogs', () => {
+    test.only('blog with a valid id can be liked', async () => {
+      const blogsAtStart = await helper.blogsInDB()
+      const firstBlog = blogsAtStart[0]
+
+      await api
+        .put(`/api/blogs/${firstBlog.id}`)
+        .expect(200)
+
+      const blogsAtEnd = await helper.blogsInDB()
+      const newFirstBlog = blogsAtEnd[0]
+
+      assert.strictEqual(newFirstBlog.likes, firstBlog.likes + 1)
+    })
+
+    test.only('editing a blog with an invalid id returns a 404', async () => {
+      const id = await helper.nonExistingId()
+
+      await api
+        .put(`/api/blogs/${id}`)
+        .expect(404)
+    })
+  })
+
   after(async () => {
     await mongoose.connection.close()
   })

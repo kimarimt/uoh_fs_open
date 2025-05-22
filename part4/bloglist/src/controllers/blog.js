@@ -25,6 +25,22 @@ router.get('/:id', asyncHandler(async (req, res, _next) => {
   res.json(blog)
 }))
 
+router.put('/:id', asyncHandler(async (req, res, _next) => {
+  const blog = await Blog.findById(req.params.id)
+
+  if (!blog) {
+    return res.status(404).send({ error: 'blog not found!' })
+  }
+
+  const newBlog = await Blog.findByIdAndUpdate(
+    { _id: blog.id },
+    { $inc: { likes: 1 } },
+    { new: true },
+  )
+
+  res.status(200).json(newBlog)
+}))
+
 router.delete('/:id', asyncHandler(async (req, res, _next) => {
   const blog = await Blog.findById(req.params.id)
 
